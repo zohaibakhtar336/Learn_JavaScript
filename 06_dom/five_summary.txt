@@ -1,0 +1,380 @@
+// =======================================
+// 🎯 BASIC DOM MANIPULATION CHEAT SHEET 🎯
+// =======================================
+
+// -------- Selecting Elements --------
+
+// 1️⃣ Get element by ID
+const title = document.getElementById("main-title");
+console.log(title); // Logs the element with ID "main-title"
+
+// 2️⃣ Get elements by class name (returns an HTMLCollection)
+const items = document.getElementsByClassName("list-item");
+console.log(items); // Logs all elements with class "list-item"
+
+// 3️⃣ Get elements by tag name (returns an HTMLCollection)
+const paragraphs = document.getElementsByTagName("p");
+console.log(paragraphs); // Logs all <p> elements
+
+// 4️⃣ Get the first matching element using querySelector()
+const firstItem = document.querySelector(".list-item");
+console.log(firstItem); // Logs the first element with class "list-item"
+
+// 5️⃣ Get all matching elements using querySelectorAll()
+const allItems = document.querySelectorAll(".list-item");
+console.log(allItems); // Logs a NodeList of all elements with class "list-item"
+
+// -------- Modifying Elements --------
+
+// 6️⃣ Changing text content
+const heading = document.getElementById("main-title");
+heading.textContent = "Hello, DOM!"; // Updates text inside the element
+
+// 7️⃣ Changing innerHTML (Use carefully to avoid XSS vulnerabilities)
+heading.innerHTML = "<span style='color: red;'>Hello, DOM!</span>"; // Adds HTML inside the element
+
+// 8️⃣ Changing element styles
+heading.style.color = "blue"; // Changes text color to blue
+heading.style.backgroundColor = "lightgray"; // Changes background color
+
+// -------- Adding and Removing Elements --------
+
+// 9️⃣ Creating a new element
+const newPara = document.createElement("p");
+newPara.textContent = "This is a new paragraph!";
+document.body.appendChild(newPara); // Adds it to the end of the <body>
+
+// 🔟 Removing an element
+const removeItem = document.querySelector(".list-item");
+removeItem.remove(); // Removes the first list item from the DOM
+
+// 1️⃣1️⃣ Adding and removing classes
+const box = document.querySelector(".box");
+box.classList.add("highlight"); // Adds the "highlight" class
+box.classList.remove("box"); // Removes the "box" class
+
+// 1️⃣2️⃣ Checking if an element has a class
+console.log(box.classList.contains("highlight")); // true
+
+// -------- Event Handling --------
+
+// 1️⃣3️⃣ Adding an event listener
+const button = document.querySelector(".btn");
+button.addEventListener("click", function () {
+    alert("Button Clicked!");
+});
+
+// 1️⃣4️⃣ Handling input events
+const inputField = document.querySelector("#name-input");
+inputField.addEventListener("input", function (event) {
+    console.log("Typed:", event.target.value);
+});
+
+// -------- Traversing the DOM --------
+
+// 1️⃣5️⃣ Get parent element
+const child = document.querySelector(".child");
+console.log(child.parentElement); // Logs the parent of the selected element
+
+// 1️⃣6️⃣ Get all child elements
+const parent = document.querySelector(".parent");
+console.log(parent.children); // Logs all child elements
+
+// 1️⃣7️⃣ Get the next sibling
+console.log(child.nextElementSibling); // Logs the next sibling element
+
+// 1️⃣8️⃣ Get the previous sibling
+console.log(child.previousElementSibling); // Logs the previous sibling element
+
+// ---------------- INTERVIEW QUESTIONS ----------------
+
+// Q1: What is the difference between `innerHTML`, `innerText`, and `textContent`?
+// Ans: 
+// - `innerHTML` includes HTML tags inside the element.
+// - `innerText` only includes visible text.
+// - `textContent` includes all text, even hidden ones.
+
+// Q2: How do you select all elements of a class?
+// Ans: Use `document.querySelectorAll(".className")` to get a NodeList or `document.getElementsByClassName("className")` to get an HTMLCollection.
+
+// Q3: How do you add a new element to the DOM?
+// Ans: 
+// - Use `document.createElement("tag")` to create it.
+// - Use `parentElement.appendChild(newElement)` to add it.
+
+// Q4: How do you remove an element from the DOM?
+// Ans: Use `element.remove()` or `parentElement.removeChild(childElement)`.
+
+// Q5: What are event listeners?
+// Ans: Event listeners allow you to execute a function when an event occurs, e.g., `element.addEventListener("click", functionName)`.
+
+// Q6: What is the difference between `querySelector()` and `querySelectorAll()`?
+// Ans: 
+// - `querySelector()` selects the **first** matching element.
+// - `querySelectorAll()` selects **all** matching elements as a NodeList.
+
+
+// ============================
+// 🎯 INTERMEDIATE DOM MANIPULATION CHEAT SHEET 🎯
+// ============================
+
+// -------- Selecting Multiple Elements --------
+
+// Select all elements with a class name
+const allButtons = document.getElementsByClassName("btn"); // HTMLCollection (Live)
+const allItems = document.querySelectorAll(".item"); // NodeList (Static)
+console.log(allButtons, allItems);
+
+// Convert HTMLCollection to an array
+const buttonsArray = Array.from(allButtons);
+console.log(buttonsArray);
+
+// -------- Modifying Elements --------
+
+// Change multiple styles dynamically
+document.body.style.backgroundColor = "lightgray";
+
+// Change multiple elements in a loop
+allItems.forEach((item, index) => {
+    item.style.color = index % 2 === 0 ? "blue" : "green";
+});
+
+// -------- Handling Classes --------
+
+// Add, Remove, Toggle, and Check a class
+const div = document.querySelector(".box");
+div.classList.add("highlight");
+div.classList.remove("box");
+div.classList.toggle("active"); // Adds if not present, removes if present
+console.log(div.classList.contains("active")); // true
+
+// -------- Event Handling (Advanced) --------
+
+// Attach event listener using "this" keyword
+document.querySelector(".btn").addEventListener("click", function () {
+    this.style.backgroundColor = "red"; // "this" refers to the button clicked
+});
+
+// Prevent default behavior
+document.querySelector("a").addEventListener("click", function (event) {
+    event.preventDefault();
+    console.log("Link clicked but not followed!");
+});
+
+// -------- Event Bubbling & Capturing --------
+
+// Bubbling (Default: Child to Parent)
+document.querySelector(".child").addEventListener("click", () => {
+    console.log("Child Clicked!");
+});
+document.querySelector(".parent").addEventListener("click", () => {
+    console.log("Parent Clicked!");
+});
+
+// Capturing (Reverse: Parent to Child)
+document.querySelector(".outer").addEventListener("click", () => {
+    console.log("Outer Clicked!");
+}, true);
+
+// -------- Event Delegation --------
+
+// Instead of adding event listeners to multiple elements, use event delegation
+document.querySelector(".list").addEventListener("click", (event) => {
+    if (event.target.tagName === "LI") {
+        console.log("List Item Clicked:", event.target.innerText);
+    }
+});
+
+// -------- Creating & Removing Elements --------
+
+// Creating an element
+const newPara = document.createElement("p");
+newPara.innerText = "This is a new paragraph!";
+document.body.appendChild(newPara);
+
+// Removing an element
+setTimeout(() => {
+    newPara.remove(); // Removes the paragraph after 3 seconds
+}, 3000);
+
+// -------- Attribute Manipulation --------
+const image = document.querySelector("img");
+console.log(image.getAttribute("src")); // Get image source
+image.setAttribute("alt", "New Image Description"); // Set a new alt text
+image.removeAttribute("width"); // Remove an attribute
+
+// -------- Working with Forms --------
+const inputField = document.querySelector("#username");
+inputField.value = "Zohaib"; // Set input value
+
+document.querySelector("form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    console.log("Form Submitted with:", inputField.value);
+});
+
+// ---------------- INTERVIEW QUESTIONS ----------------
+
+// Q1: What is the difference between NodeList and HTMLCollection?
+// Ans: NodeList is static (does not update automatically), while HTMLCollection is live (updates when DOM changes).
+
+// Q2: What is the difference between event.target and event.currentTarget?
+// Ans: event.target is the actual element that triggered the event, while event.currentTarget refers to the element the listener is attached to.
+
+// Q3: What is the difference between event.stopPropagation() and event.preventDefault()?
+// Ans: event.stopPropagation() stops event bubbling/capturing, while event.preventDefault() prevents the default browser action.
+
+// Q4: How can you optimize event handling for dynamically added elements?
+// Ans: Use Event Delegation (add event listener to parent and use event.target to identify the clicked child).
+
+// Q5: What is the difference between remove() and removeChild()?
+// Ans: remove() deletes an element directly, removeChild() requires specifying which child to remove.
+
+
+// ===============================
+// 🎯 ADVANCED DOM MANIPULATION CHEAT SHEET 🎯
+// ===============================
+
+// -------- Advanced Event Handling --------
+
+// 1️⃣ Event Delegation (Handling multiple child elements efficiently)
+document.querySelector(".container").addEventListener("click", (event) => {
+    if (event.target.classList.contains("dynamic-item")) {
+        console.log("Dynamic Item Clicked:", event.target.innerText);
+    }
+});
+
+// 2️⃣ Removing Event Listeners Efficiently
+function handleClick() {
+    console.log("Clicked! Event Removed.");
+    button.removeEventListener("click", handleClick);
+}
+const button = document.querySelector(".btn");
+button.addEventListener("click", handleClick);
+
+// 3️⃣ Custom Events (Create & Dispatch Your Own Event)
+const customEvent = new Event("myCustomEvent");
+document.addEventListener("myCustomEvent", () => console.log("Custom Event Triggered!"));
+document.dispatchEvent(customEvent); // Triggers the event
+
+// 4️⃣ Once Event Listener (Executes only once)
+document.querySelector(".once-btn").addEventListener("click", () => {
+    console.log("Clicked once!");
+}, { once: true });
+
+// -------- Optimized DOM Traversal --------
+
+// 5️⃣ Closest() - Finds the nearest ancestor matching the selector
+const subElement = document.querySelector(".sub-element");
+console.log(subElement.closest(".parent")); // Finds the nearest parent with class "parent"
+
+// 6️⃣ Matches() - Checks if an element matches a CSS selector
+console.log(subElement.matches(".sub-element")); // true
+
+// -------- Efficient Element Creation & Fragment Usage --------
+
+// 7️⃣ Using DocumentFragment for better performance (avoiding reflows)
+const fragment = document.createDocumentFragment();
+for (let i = 1; i <= 5; i++) {
+    const li = document.createElement("li");
+    li.innerText = `Item ${i}`;
+    fragment.appendChild(li);
+}
+document.querySelector(".list").appendChild(fragment); // Append all at once (better performance)
+
+// -------- Mutation Observer (Detects DOM Changes) --------
+
+// 8️⃣ Observing DOM changes dynamically
+const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+        console.log("Mutation detected:", mutation);
+    });
+});
+observer.observe(document.body, { childList: true, subtree: true });
+
+// -------- Intersection Observer (Detects Element Visibility) --------
+
+// 9️⃣ Lazy Loading Images
+const images = document.querySelectorAll("img.lazy-load");
+const imageObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+            entry.target.src = entry.target.dataset.src;
+            imageObserver.unobserve(entry.target);
+        }
+    });
+});
+images.forEach((img) => imageObserver.observe(img));
+
+// -------- Shadow DOM (Encapsulated Styles & Scripts) --------
+
+// 🔟 Creating a Shadow DOM for component-like isolation
+const hostElement = document.querySelector(".shadow-host");
+const shadowRoot = hostElement.attachShadow({ mode: "open" });
+shadowRoot.innerHTML = `<style>p { color: red; }</style><p>Shadow DOM Content</p>`;
+
+// -------- Performance Optimization --------
+
+// 1️⃣1️⃣ Debouncing (Limits function calls to improve performance)
+function debounce(func, delay) {
+    let timer;
+    return function (...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => func.apply(this, args), delay);
+    };
+}
+window.addEventListener("resize", debounce(() => console.log("Resized!"), 300));
+
+// 1️⃣2️⃣ Throttling (Ensures function runs at most once in a time interval)
+function throttle(func, interval) {
+    let lastCall = 0;
+    return function (...args) {
+        const now = Date.now();
+        if (now - lastCall >= interval) {
+            lastCall = now;
+            func.apply(this, args);
+        }
+    };
+}
+window.addEventListener("scroll", throttle(() => console.log("Scrolling..."), 500));
+
+// -------- Content Security & Prevention --------
+
+// 1️⃣3️⃣ Preventing XSS (Sanitize user input)
+function sanitizeInput(input) {
+    const temp = document.createElement("div");
+    temp.innerText = input;
+    return temp.innerHTML;
+}
+document.querySelector("#user-input").addEventListener("input", (e) => {
+    document.querySelector(".output").innerHTML = sanitizeInput(e.target.value);
+});
+
+// -------- Web Component Creation --------
+
+// 1️⃣4️⃣ Creating a Simple Web Component
+class CustomElement extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({ mode: "open" }).innerHTML = `<p>Custom Element Loaded</p>`;
+    }
+}
+customElements.define("custom-element", CustomElement);
+// Usage: <custom-element></custom-element>
+
+// ---------------- INTERVIEW QUESTIONS ----------------
+
+// Q1: What is the difference between MutationObserver and IntersectionObserver?
+// Ans: MutationObserver watches for DOM changes, while IntersectionObserver detects element visibility within the viewport.
+
+// Q2: Why use DocumentFragment?
+// Ans: Improves performance by reducing reflows and repaints when appending multiple elements to the DOM.
+
+// Q3: What is Shadow DOM and why use it?
+// Ans: Shadow DOM encapsulates styles and scripts to prevent conflicts between different components on the page.
+
+// Q4: What is event delegation and why is it useful?
+// Ans: It allows adding a single event listener to a parent element instead of multiple child elements, improving performance and handling dynamically added elements.
+
+// Q5: What is the difference between debounce and throttle?
+// Ans: Debounce delays function execution until inactivity, while throttle ensures execution at a fixed time interval.
+
