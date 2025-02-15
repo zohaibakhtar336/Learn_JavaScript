@@ -1,0 +1,118 @@
+/* =============================
+   📌 JavaScript Events Cheatsheet
+   ============================= */
+
+// 1️⃣ Event Handling Methods
+
+// 🔹 1.1 Inline Event (Not Recommended)
+// Clicking the button shows an alert: "Button Clicked!"
+// Issue: Not reusable, mixes JavaScript with HTML.
+// <button onclick="alert('Button Clicked!')">Click Me</button>
+
+// 🔹 1.2 addEventListener() (Recommended)
+// Clicking the button shows an alert.
+document.getElementById("btn").addEventListener("click", function () {
+    alert("Button Clicked!");
+});
+
+// 2️⃣ Mouse Events
+let btn = document.getElementById("mouseBtn");
+
+btn.addEventListener("mouseover", function () {
+    console.log("Mouse Over Event Triggered");
+});
+
+btn.addEventListener("mouseout", function () {
+    console.log("Mouse Out Event Triggered");
+});
+
+// 🔹 Common Mouse Events: click, dblclick, mousedown, mouseup, mouseover, mouseout, mousemove
+
+// 3️⃣ Keyboard Events
+document.getElementById("inputBox").addEventListener("keydown", function (event) {
+    console.log("Key Down:", event.key);
+});
+
+document.getElementById("inputBox").addEventListener("keyup", function (event) {
+    console.log("Key Up:", event.key);
+});
+
+// 🔹 Common Keyboard Events: keydown, keyup, keypress
+
+// 4️⃣ Form Events
+document.getElementById("myForm").addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevents form submission
+    console.log("Form Submitted!");
+});
+
+// 🔹 Common Form Events: submit, input, change, focus, blur
+
+// 5️⃣ Event Delegation
+// Efficient way to handle events for multiple dynamic elements
+document.getElementById("parent").addEventListener("click", function (event) {
+    if (event.target && event.target.matches(".child")) {
+        console.log("Child Element Clicked!");
+    }
+});
+
+// 6️⃣ Event Bubbling vs Capturing
+// Bubbling (Default: Inner -> Outer), Capturing (Outer -> Inner)
+document.getElementById("child").addEventListener("click", function () {
+    console.log("Child Clicked");
+}, true); // Change true to false for bubbling
+
+// 7️⃣ Remove Event Listener
+function greet() {
+    console.log("Hello");
+}
+let button = document.getElementById("removeBtn");
+button.addEventListener("click", greet);
+button.removeEventListener("click", greet);
+
+// 8️⃣ Prevent Default Behavior
+document.getElementById("link").addEventListener("click", function (event) {
+    event.preventDefault(); // Prevents navigating to the link
+    console.log("Default action prevented!");
+});
+
+// 9️⃣ Throttling Events
+function throttle(func, limit) {
+    let lastFunc;
+    let lastRan;
+    return function () {
+        const context = this, args = arguments;
+        if (!lastRan) {
+            func.apply(context, args);
+            lastRan = Date.now();
+        } else {
+            clearTimeout(lastFunc);
+            lastFunc = setTimeout(function () {
+                if ((Date.now() - lastRan) >= limit) {
+                    func.apply(context, args);
+                    lastRan = Date.now();
+                }
+            }, limit - (Date.now() - lastRan));
+        }
+    };
+}
+
+/* =============================
+   📌 Interview Questions & Answers
+   ============================= */
+
+/*
+1️⃣ What is the difference between inline event handling and addEventListener()?
+✅ Inline event handlers are directly written in HTML, while addEventListener() keeps JavaScript separate and allows multiple handlers.
+
+2️⃣ What is event delegation in JavaScript?
+✅ Event delegation is a technique where a parent element listens to events on its child elements, useful for dynamically added elements.
+
+3️⃣ What is the difference between event bubbling and capturing?
+✅ Bubbling propagates the event from child to parent (default), while capturing goes from parent to child.
+
+4️⃣ How do you remove an event listener in JavaScript?
+✅ Use removeEventListener() with the exact same function reference used in addEventListener().
+
+5️⃣ What is event throttling?
+✅ Throttling ensures that an event (like scroll or resize) fires at most once in a specified time interval, improving performance.
+*/
