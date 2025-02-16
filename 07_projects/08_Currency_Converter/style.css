@@ -1,0 +1,113 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, #4a90e2, #d7e1ec);
+}
+
+.div {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.div:hover {
+    transform: scale(1.05);
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #2c3e50;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    background: #ecf0f1;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+input[type="number"] {
+    width: 60%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    background: transparent;
+    outline: none;
+    text-align: center;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+select {
+    width: 35%;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    background: #ffffff;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #2c3e50;
+}
+
+.arrow {
+    font-size: 28px;
+    margin: 15px 0;
+    color: #34495e;
+    font-weight: bold;
+}
+
+.result {
+    font-size: 20px;
+    font-weight: bold;
+    color: #34495e;
+    margin-top: 15px;
+    background: #f7f9fc;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    .div {
+        width: 95%;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    input[type="number"],
+    select {
+        font-size: 14px;
+        padding: 6px;
+    }
+
+    .arrow {
+        font-size: 24px;
+    }
+
+    .result {
+        font-size: 18px;
+    }
+}
